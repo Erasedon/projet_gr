@@ -3,18 +3,19 @@
 namespace App\Controller;
 
 use App\Entity\GRUser;
-use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
+use App\Security\GRAuthenticator;
+use App\Form\RegistrationFormType;
+use App\Services\User;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mime\Address;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RegistrationController extends AbstractController
 {
@@ -26,7 +27,14 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register(
+        Request $request, 
+        UserPasswordHasherInterface $userPasswordHasher,
+        UserAuthenticatorInterface $userAuthenticator, 
+        EntityManagerInterface $entityManager,
+        GRAuthenticator $GRauthenticator,
+        \App\Services\UserService $userService
+    ): Response
     {
         $user = new GRUser();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -54,16 +62,16 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-                (new TemplatedEmail())
-                    ->from(new Address('GR-admin@gmail.com', 'GR Mail'))
-                    ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
-            );
+            $userService::envoyerMailConfirmation(request: $request, emailVerifier: $this->emailVerifier, user: $user);
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('app_home');
+            $this->addFlash('success', 'Bienvenue sur Gaming-Reims !');
+
+            return $userAuthenticator->authenticateUser(
+                $user,
+                $GRauthenticator,
+                $request
+            );
         }
 
         return $this->render('registration/register.html.twig', [
