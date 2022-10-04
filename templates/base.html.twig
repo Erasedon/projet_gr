@@ -15,5 +15,8 @@
     </head>
     <body>
         {% block body %}{% endblock %}
+        {% block javascript %}
+            {{ encore_entry_script_tags('scan') }}
+        {% endblock %}
     </body>
 </html>
