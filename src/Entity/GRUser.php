@@ -4,10 +4,12 @@ namespace App\Entity;
 
 use App\Repository\GRUserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: GRUserRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'Cet Email existe déjà !')]
 class GRUser implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -53,6 +55,9 @@ class GRUser implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?bool $stand5 = null;
+
+    #[ORM\Column(type: 'boolean')]
+    private $isVerified = false;
 
     public function getId(): ?int
     {
@@ -228,6 +233,18 @@ class GRUser implements UserInterface, PasswordAuthenticatedUserInterface
     public function setStand5(bool $stand5): self
     {
         $this->stand5 = $stand5;
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }
