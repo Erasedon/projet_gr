@@ -3,19 +3,53 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-    {% endfor %}
+    <div class="container my-3 d-flex justify-content-center">
 
-    <h1>Register</h1>
+        <div class="card px-5 py-3 bg-light radius">
+            
+        {% for flash_error in app.flashes('verify_email_error') %}
+                <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+            {% endfor %}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+    <h1 class="display-5 mb-3">Veuillez vous inscrire</h1>
+        <p>Déjà un compte ? Vous pouvez vous <a href="{{ path('app_login') }}"> connecter ici</a></p>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+
+            {{ form_start(registrationForm, {attr: {class: 'my-2'}}) }}
+                {{ form_row(registrationForm.email, {attr: {class: 'form-control mb-3'}}) }}
+                {{ form_row(registrationForm.plainPassword.first, {
+                    label: 'Mot de passe', attr: {class: 'form-control'}
+                }) }}
+                  {{ form_row(registrationForm.plainPassword.second, {
+                    label: 'Repeter Mot de passe', attr: {class: 'form-control'}
+                }) }}
+
+                {{ form_row(registrationForm.nom, {
+                    label: 'Votre nom', attr: {class: 'form-control'}
+                }) }}
+
+                {{ form_row(registrationForm.prenom, {
+                    label: 'Votre prénom', attr: {class: 'form-control'}
+                }) }}
+
+                {{ form_row(registrationForm.telephone, {
+                    label: 'Numero de téléphone', attr: {class: 'form-control'}
+                }) }}
+              
+                {{ form_row(registrationForm.agreeTerms, {
+                    label: 'Accepter les CGU', attr: {class:'mb-3'}
+                }) }}
+            {# <label>
+                <input type="checkbox" name="_remember_me" checked/>
+                Rester connecté grâce à un cookie
+            </label> #}
+
+            
+            <button type="submit" class="btn btn-primary d-block mt-3">S'inscrire</button>
+            {{ form_end(registrationForm) }}
+            
+    
+        </div>
+</div>
+
 {% endblock %}
