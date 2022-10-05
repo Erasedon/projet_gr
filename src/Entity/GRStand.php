@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Uid\Uuid;
 use App\Repository\GRStandRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -12,6 +13,9 @@ class GRStand
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+    #[ORM\Column(type: 'string', length: 180, unique: true)]
+    private ?string $uuid;
 
     #[ORM\Column(length: 100)]
     private ?string $NomStand = null;
@@ -31,6 +35,11 @@ class GRStand
     #[ORM\ManyToOne(inversedBy: 'GRStands')]
     private ?GRQuizz $GRQuizz = null;
 
+    public function __construct()
+    {
+        $uuid = Uuid::v6();
+        $this->setUuid($uuid);
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -104,6 +113,17 @@ class GRStand
     public function setGRQuizz(?GRQuizz $GRQuizz): self
     {
         $this->GRQuizz = $GRQuizz;
+
+        return $this;
+    }
+    public function getUuid(): ?string
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid(string $uuid): self
+    {
+        $this->uuid = $uuid;
 
         return $this;
     }
