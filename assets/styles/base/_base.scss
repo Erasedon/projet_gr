@@ -34,7 +34,8 @@ a {
   }
     
 #nav {
-    position: absolute;
+    position: fixed;
+    z-index: 1;
     bottom: 0;
     /* on le colle en bas */
     width: 100%;
