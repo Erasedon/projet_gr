@@ -22,6 +22,7 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
+    
     #[Route('/classement', name: 'ranked_home')]
     public function ranked(): Response
     {
