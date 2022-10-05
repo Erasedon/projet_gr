@@ -1,19 +1,57 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		<link
+		rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+	</head>
+	<body>
+		<div id="main">
+			{% block header %}
+				<div class="contain_logo d-flex justify-content-center">
+					<img id="logo_GR" src="{{asset('build/img/logo_GR.png')}}" alt="logo Gaming Reims">
+				</div>
+			{% endblock %}
+			{% block body %}{% endblock %}
+		</div>
+		{% block navbar %}
+			<!-- Navbar -->
+			<div class="menu-nav" id="nav">
+				<nav class="navbar">
+					<div class="navcont container-fluid d-flex justify-content-around">
+						{% if is_granted('ROLE_ADMIN') %}
+							<a class="nav-link" href="{{path('app_home')}}">
+								<i class="fa-solid fa-house"></i>
+							</a>
+							<a class="nav-link" href="{{path('app_admin')}}">
+								<i class="fa-solid fa-gear"></i>
+							</a>
+						{% else %}
+							<a class="nav-link" href="{{path('quizz_home')}}">
+								<i class="fa-regular fa-rectangle-list"></i>
+							</a>
+							<a class="nav-link" href="{{path('app_home')}}">
+								<i class="fa-solid fa-house"></i>
+							</a>
+							<a class="nav-link" href="{{path('ranked_home')}}">
+								<i class="fa-solid fa-ranking-star"></i>
+							</a>
+						{% endif %}
+					</div>
+				</nav>
+			</div>
+		{% endblock %}
+	</body>
 </html>

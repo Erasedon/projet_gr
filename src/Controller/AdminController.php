@@ -15,4 +15,18 @@ class AdminController extends AbstractController
             'controller_name' => 'AdminController',
         ]);
     }
+    #[Route('/admin/stand', name: 'app_stand')]
+    public function stand(): Response
+    {
+        return $this->render('admin/stand.html.twig', [
+            'controller_name' => 'AdminController',
+        ]);
+    }
+    #[Route('/admin/create', name: 'app_create')]
+    public function create(): Response
+    {
+        return $this->render('admin/create.html.twig', [
+            'controller_name' => 'AdminController',
+        ]);
+    }
 }
