@@ -28,6 +28,9 @@ class GRStand
     #[ORM\ManyToOne(inversedBy: 'GRStands')]
     private ?GRTypeStand $Type = null;
 
+    #[ORM\ManyToOne(inversedBy: 'GRStands')]
+    private ?GRQuizz $GRQuizz = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +92,18 @@ class GRStand
     public function setType(?GRTypeStand $Type): self
     {
         $this->Type = $Type;
+
+        return $this;
+    }
+
+    public function getGRQuizz(): ?GRQuizz
+    {
+        return $this->GRQuizz;
+    }
+
+    public function setGRQuizz(?GRQuizz $GRQuizz): self
+    {
+        $this->GRQuizz = $GRQuizz;
 
         return $this;
     }
