@@ -8,13 +8,41 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <section class="container" id="demo-content">
+      <h1 class="title">Scan QR Code from Video Camera</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/projet_gr/src/Controller/ScanController.php'|file_link(0) }}">src/Controller/ScanController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/projet_gr/templates/scan/index.html.twig'|file_link(0) }}">templates/scan/index.html.twig</a></code></li>
-    </ul>
-</div>
+      <div>
+        <a class="button" id="startButton">Start</a>
+        <a class="button" id="resetButton">Reset</a>
+      </div>
+
+      <div>
+        <video id="video" width="300" height="200" style="border: 1px solid gray"></video>
+      </div>
+
+      <div id="sourceSelectPanel" style="display:none">
+        <label for="sourceSelect">Change video source:</label>
+        <select id="sourceSelect" style="max-width:400px">
+        </select>
+      </div>
+
+      <div style="display: table">
+        <label for="decoding-style"> Decoding Style:</label>
+        <select id="decoding-style" size="1">
+          <option value="once">Decode once</option>
+          <option value="continuously">Decode continuously</option>
+        </select>
+      </div>
+
+      <label>Result:</label>
+      <pre><code id="result"></code></pre>
+
+      
+    </section>
+      <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>  
+  {% block javascript %}
+            {{ encore_entry_script_tags('scan') }}
+        {% endblock %}
+
 {% endblock %}
+ 

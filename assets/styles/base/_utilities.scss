@@ -1,0 +1,90 @@
+
+/* utilities classes HTML à inserer dans class="exemple(bg-second)"  */
+
+/* background & color text */
+
+.bg-first {
+    background-color: var(--GR-first);
+}
+
+.bg-second {
+    background-color: var(--GR-second);
+}
+
+.colo-first {
+    color: var(--GR-first);
+}
+
+.colo-second {
+    color: var(--GR-second);
+}
+
+.bg-theme {
+    background-color: var(--GR-theme);
+}
+
+.bg-light {
+    background-color: var(--GR-light);
+}
+
+.colo-light {
+    color: var(--GR-light);
+}
+
+.bg-black {
+    background-color: var(--GR-black);
+}
+
+.colo-black {
+    color: var(--GR-black);
+}
+
+
+/* border radius */
+
+
+.radius {
+    border-radius: var(--border-radius-global);
+}
+
+
+/* font family */
+
+
+.poppins {
+    font-family: "Poppins", sans-serif;
+}
+
+
+/* font size */
+
+.verysmall {
+    font-size: 0.4em !important;
+}
+
+.mediumsize {
+    font-size: 2.2em !important;
+}
+
+.bigsize {
+    font-size: 2.5em !important;
+}
+
+/* espacement */
+
+.extra-space-m {
+	width: 100%;
+	height: 20px;
+}
+.extra-space-l {
+	width: 100%;
+	height: 40px;
+}
+.extra-space-xl {
+	width: 100%;
+	height: 60px;
+}
+.extra-space-xxl {
+	width: 100%;
+	height: 80px;
+}
