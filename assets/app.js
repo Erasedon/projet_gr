@@ -11,3 +11,6 @@ import "@fortawesome/fontawesome-free/js/all.min.js";
 
 // start the Stimulus application
 import './bootstrap';
+// import $ from "jquery";
+
+

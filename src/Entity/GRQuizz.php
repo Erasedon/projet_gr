@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\GRQuizzRepository;
 use Doctrine\Common\Collections\Collection;
@@ -15,9 +14,6 @@ class GRQuizz
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\Column(type: 'string', length: 180, unique: true)]
-    private ?string $uuid;
 
     #[ORM\Column(length: 255)]
     private ?string $Question = null;
@@ -46,8 +42,6 @@ class GRQuizz
     public function __construct()
     {
         $this->GRStands = new ArrayCollection();
-        $uuid = Uuid::v6();
-        $this->setUuid($uuid);
     }
 
     public function getId(): ?int
@@ -165,17 +159,6 @@ class GRQuizz
     public function setBonneReponse(string $BonneReponse): self
     {
         $this->BonneReponse = $BonneReponse;
-
-        return $this;
-    }
-    public function getUuid(): ?string
-    {
-        return $this->uuid;
-    }
-
-    public function setUuid(string $uuid): self
-    {
-        $this->uuid = $uuid;
 
         return $this;
     }

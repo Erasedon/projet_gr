@@ -59,6 +59,9 @@ class GRUser implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
+    #[ORM\Column]
+    private ?bool $Banned = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -245,6 +248,18 @@ class GRUser implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function isBanned(): ?bool
+    {
+        return $this->Banned;
+    }
+
+    public function setBanned(bool $Banned): self
+    {
+        $this->Banned = $Banned;
 
         return $this;
     }

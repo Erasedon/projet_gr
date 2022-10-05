@@ -28,14 +28,13 @@ class RegistrationController extends AbstractController
 
     #[Route('/register', name: 'app_register')]
     public function register(
-        Request $request, 
+        Request $request,
         UserPasswordHasherInterface $userPasswordHasher,
-        UserAuthenticatorInterface $userAuthenticator, 
+        UserAuthenticatorInterface $userAuthenticator,
         EntityManagerInterface $entityManager,
         GRAuthenticator $GRauthenticator,
         \App\Services\UserService $userService
-    ): Response
-    {
+    ): Response {
         $user = new GRUser();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -49,11 +48,12 @@ class RegistrationController extends AbstractController
                 )
 
             );
-            $user->setStand1(false)
-            ->setStand2(false)
-            ->setStand3(false)
-            ->setStand4(false)
-            ->setStand5(false);
+            $user->setBanned(false)
+                ->setStand1(false)
+                ->setStand2(false)
+                ->setStand3(false)
+                ->setStand4(false)
+                ->setStand5(false);
 
 
 
