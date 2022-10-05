@@ -68,7 +68,7 @@ a {
     }  
 
     #logo_GR {
-        height: 350px;
+        height: 20vh;
     }
    
 }
@@ -91,10 +91,38 @@ a {
 
 /* tablette */
 @media #{$md} {
+    .contain_logo {
+        padding: 40px 0;
+        width: 70px;
+    } 
+    #logo_GR {
+        height: 20px;
+    }
+    #nav {
+        position: fixed;
+        z-index: 1;
+        bottom: 0;
+        /* on le colle en bas */
+        width: 100%;
+   
+
+    }
+        
+    
     
 }
 
 /* desktop */
-@media #{$laptop} {
-    
+@media #{$lg} {
+    .contain_logo {
+        padding: 20px 0;
+        width: 50px;
+    } 
+    #logo_GR {
+        height: 50px;
+    }
+
+    .navcont {
+        font-size: 20px ;
+    }   
 }
