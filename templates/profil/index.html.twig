@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProfilController!{% endblock %}
+
+{% block body %}
+
+
+  <div class="col-sm-9 text-secondary">
+                                {{ app.user.Verified ? '✅' : '❌' }}
+                                {% if not app.user.Verified %}
+                                <a href="{{path('app_profil_mail_confirmation')}}" class="btn btn-secondary">Renvoyer le mail de confirmation</a>
+                                 {% endif %}
+                            </div>
+{% endblock %}
