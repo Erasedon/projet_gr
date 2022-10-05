@@ -4,6 +4,7 @@ function decodeOnce(codeReader, selectedDeviceId) {
   codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
     console.log(result)
     document.getElementById('result').textContent = result.text
+    setTimeout(document.location.href=result.text, 2000);
   }).catch((err) => {
     console.error(err)
     document.getElementById('result').textContent = err
@@ -14,7 +15,7 @@ function decodeContinuously(codeReader, selectedDeviceId) {
   codeReader.decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'video', (result, err) => {
     if (result) {
       // properly decoded qr code
-      console.log('Found QR code!', result)
+      console.log('QR code trouvé!', result)
       document.getElementById('result').textContent = result.text
     }
 
@@ -47,7 +48,7 @@ function decodeContinuously(codeReader, selectedDeviceId) {
 window.addEventListener('load', function () {
   let selectedDeviceId;
   const codeReader = new ZXing.BrowserQRCodeReader()
-  console.log('ZXing code reader initialized')
+  console.log('Bon chargements du code')
 
   codeReader.getVideoInputDevices()
     .then((videoInputDevices) => {
@@ -79,13 +80,13 @@ window.addEventListener('load', function () {
           decodeContinuously(codeReader, selectedDeviceId);
         }
 
-        console.log(`Started decode from camera with id ${selectedDeviceId}`)
+        console.log(`start decodage de la camera et fourni id: ${selectedDeviceId}`)
       })
 
       document.getElementById('resetButton').addEventListener('click', () => {
         codeReader.reset()
         document.getElementById('result').textContent = '';
-        console.log('Reset.')
+        console.log('Reset de l\'appli')
       })
 
     })
