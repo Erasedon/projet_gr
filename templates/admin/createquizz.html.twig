@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block title %}Hello AdminController!
+{% endblock %}
+{% block body %}
+	{{ form_start(form)}}
+	<div class="mx-5">{{form_row(form.Question, {'attr': {'class': 'form-control'}})}}</div>
+	<div class="mx-5">{{form_row(form.BonneReponse, {'attr': {'class': 'form-control'}})}}</div>
+	<div class="mx-5">{{form_row(form.Reponse1, {'attr': {'class': 'form-control'}})}}</div>
+	<div class="mx-5">{{form_row(form.Reponse2, {'attr': {'class': 'form-control'}})}}</div>
+	<div class="mx-5">{{form_row(form.Reponse3, {'attr': {'class': 'form-control'}})}}</div>
+	<div class="mx-5">{{form_row(form.Reponse4, {'attr': {'class': 'form-control'}})}}</div>
+	<div class="mx-5">{{form_row(form.GRStand, {'attr': {'class': 'form-control'}})}}</div>
+	<div class="mx-5">{{form_row(form.GRImage, {'attr': {'class': 'form-control'}})}}</div>
+{% endblock %}
+{% block navbar %}
+	<div class="menu-nav" id="nav">
+		<nav class="navbar">
+			<div class="navcont container-fluid d-flex justify-content-around">
+				<a class="nav-link" href="{{path('app_home')}}">
+					<i class="fa-solid fa-house"></i>
+				</a>
+				<button class="nav-link" type="submit">
+					<i class="fa-solid fa-check"></i>
+				</button>
+			</div>
+		</nav>
+	</div>
+	{{ form_end(form)}}
+{% endblock %}

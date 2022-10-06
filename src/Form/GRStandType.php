@@ -19,23 +19,17 @@ class GRStandType extends AbstractType
             ->add('NomStand')
             ->add('PositionX')
             ->add('PositionY')
-            // ->add('qr_code')
             ->add(
                 'Type',
                 EntityType::class,
                 [
                     'class' => GRTypeStand::class,
-                    // 'label' => false,
-                    // 'expanded' => true,
                     'required' => true,
                     'multiple' => false,
                     'mapped' => false,
-                    // 'label_html' => true,
                     'choice_label' => function (GRTypeStand $type) {
                         $type = $type->getNomType();
-                        // if ($etat_reservation == false) {
                         return $type;
-                        // }
                     }
                 ]
             );
