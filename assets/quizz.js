@@ -1,6 +1,6 @@
 const quizData = [
     {
-      question: "Which language runs in a web browser?",
+      question: "quelle est le meilleur language back?",
       a: "Java",
       b: "C",
       c: "Python",
@@ -8,7 +8,7 @@ const quizData = [
       correct: "d"
     },
     {
-      question: "What does CSS stand for?",
+      question: "quelle est le meilleur language front?",
       a: "Central Style Sheets",
       b: "Cascading Style Sheets",
       c: "Cascading Simple Sheets",
@@ -16,10 +16,10 @@ const quizData = [
       correct: "b"
     },
     {
-      question: "What does HTML stand for?",
-      a: "Hypertext Markup Language",
-      b: "Hypertext Markdown Language",
-      c: "Hyperloop Machine Language",
+      question: "quelle est le meilleur framework?",
+      a: "vue",
+      b: "react",
+      c: "typejs",
       d: "Helicopters Terminals Motorboats Lamborginis",
       correct: "a"
     },
