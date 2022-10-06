@@ -9,7 +9,12 @@
 			<h1>Liste des Stands</h1>
 		</div>
 		<div class="block_stand">
-			{% for stand in stands %}{% endfor %}
+			<select class="select select-stand">
+				<option selected>Choose...</option>
+				{% for stand in stands %}
+					<option value={{stand.id}}>{{stand.nom_stand}}</option>
+				{% endfor %}
+			</select>
 		</div>
 	</div>
 {% endblock %}

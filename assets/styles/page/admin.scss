@@ -119,4 +119,13 @@ footer {
 // stand
 .block_stand {
     height: 50vh;
+    display: flex;
+    justify-content: center;
+}
+
+.select-stand {
+    margin-top: 30%;
+    width: 80%;
+    height: 90px;
+    border: 1px solid #1C307E;
 }
