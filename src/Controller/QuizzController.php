@@ -18,10 +18,10 @@ class QuizzController extends AbstractController
 
         $GRQuizz = $GRStand->getGRQuizz();
 
-        dd($GRQuizz);
-
+/*         dd($GRQuizz);
+ */
         return $this->render('home/quizz.html.twig', [
-            'controller_name' => 'HomeController',
+            'quizz' => $GRQuizz
         ]);
     }
 
