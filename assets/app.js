@@ -7,10 +7,17 @@
 
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.scss';
+
 import "@fortawesome/fontawesome-free/js/all.min.js";
 
 // start the Stimulus application
 import './bootstrap';
 // import $ from "jquery";
 
-
+const list = document.querySelectorAll(".nav__item");
+list.forEach((item) => {
+  item.addEventListener("click", () => {
+    list.forEach((item) => item.classList.remove("active"));
+    item.classList.add("active");
+  });
+});

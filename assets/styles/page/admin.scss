@@ -7,7 +7,7 @@
         counter-increment: li;
         font-size: 2em;
     }
-    
+
     li::before {
         content: counter(li);
         color: #1C307E;
@@ -30,8 +30,7 @@
     text-decoration: none;
 }
 
-// test
-
+// modal
 /* Décrire l'animation */
 @keyframes slideDownFadeIN {
     from {
@@ -115,4 +114,18 @@ footer {
     background-color: #5cb85c;
     font-size: 20px;
     color: white;
+}
+
+// stand
+.block_stand {
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+}
+
+.select-stand {
+    margin-top: 30%;
+    width: 80%;
+    height: 90px;
+    border: 1px solid #1C307E;
 }

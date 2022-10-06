@@ -14,20 +14,6 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
         ]);
-    }
-    #[Route('/quizz', name: 'quizz_home')]
-    public function quizz(): Response
-    {
-        return $this->render('home/quizz.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
-    }
+    }  
     
-    #[Route('/classement', name: 'ranked_home')]
-    public function ranked(): Response
-    {
-        return $this->render('home/ranked.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
-    }
 }
