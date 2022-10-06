@@ -4,6 +4,36 @@
 {% endblock %}
 
 {% block body %}
+
+	<div class="card mx-5">
+		<div class="text-center">
+			<h1>Liste des Stands</h1>
+		</div>
+		<div class="block_stand">
+			<select class="select select-stand">
+				<option selected>Choose...</option>
+				{% for stand in stands %}
+					<option value={{stand.id}}>{{stand.nom_stand}}</option>
+				{% endfor %}
+			</select>
+		</div>
+	</div>
+{% endblock %}
+{% block navbar %}
+	<div class="menu-nav" id="nav">
+		<nav class="navbar">
+			<div class="navcont container-fluid d-flex justify-content-around">
+				<a class="nav-link" href="{{path('app_home')}}">
+					<i class="fa-solid fa-house"></i>
+				</a>
+				<a class="nav-link" href="{{path('app_create')}}">
+					<i class="fa-solid fa-pen-ruler"></i>
+				</a>
+			</div>
+		</nav>
+	</div>
+  
+// partie quentin qr code stand
 <div class="example-wrapper">
     <h1>Symfony QR-Code ✅</h1> <hr>
 
@@ -22,5 +52,6 @@
         </div>
     </div>
 </div>
+
 {% endblock %}
 
