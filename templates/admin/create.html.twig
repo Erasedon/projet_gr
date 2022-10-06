@@ -1,11 +1,13 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Hello AdminController!
 {% endblock %}
-
 {% block body %}
 	{{ form_start(form)}}
-	{{ form_end(form)}}
+	{{form_row(form.uuid)}}
+	<div class="mx-5">{{form_row(form.NomStand, {'attr': {'class': 'form-control'}})}}</div>
+	<div class="mx-5">{{form_row(form.PositionX, {'attr': {'class': 'form-control'}})}}</div>
+	<div class="mx-5">{{form_row(form.PositionY, {'attr': {'class': 'form-control'}})}}</div>
+	<div class="mx-5">{{form_row(form.Type, {'attr': {'class': 'w-100 select-type'}})}}</div>
 {% endblock %}
 {% block navbar %}
 	<div class="menu-nav" id="nav">
@@ -14,10 +16,11 @@
 				<a class="nav-link" href="{{path('app_home')}}">
 					<i class="fa-solid fa-house"></i>
 				</a>
-				<a class="nav-link" href="">
+				<button class="nav-link" type="submit">
 					<i class="fa-solid fa-check"></i>
-				</a>
+				</button>
 			</div>
 		</nav>
 	</div>
+	{{ form_end(form)}}
 {% endblock %}

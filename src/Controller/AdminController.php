@@ -9,6 +9,7 @@ use App\Form\QrcodestandFormType;
 use App\Repository\GRUserRepository;
 use App\Repository\GRStandRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\GRTypeStandRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,7 +48,7 @@ class AdminController extends AbstractController
         ]);
     }
     #[Route('/admin/modif/{id}', name: 'app_modif')]
-    public function modif(Request $request, GRStandRepository $GRStandRepository, GRStand $stand, QrcodeService $qrcodeService): Response
+    public function modif(Request $request, GRStandRepository $GRStandRepository, GRStand $stand, QrcodeService $qrcodeService, EntityManagerInterface $em): Response
     {
         $qrCode = null;
         $form = $this->createForm(GRStandType::class, $stand);
@@ -55,7 +56,10 @@ class AdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            $qrCode = $qrcodeService->qrcode($data['qr_code']);
+            $qrCode = $qrcodeService->qrcode($data['uuid']);
+
+            $em->persist($stand);
+            $em->flush();
         }
 
         return $this->render('admin/modif.html.twig', [
@@ -65,7 +69,7 @@ class AdminController extends AbstractController
         ]);
     }
     #[Route('/admin/create', name: 'app_create')]
-    public function create(Request $request, GRStandRepository $GRStandRepository, QrcodeService $qrcodeService): Response
+    public function create(Request $request, GRStandRepository $GRStandRepository, GRTypeStandRepository $GRType, QrcodeService $qrcodeService, EntityManagerInterface $em): Response
     {
         $qrCode = null;
         $stand = new GRStand();
@@ -73,8 +77,17 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $qrCode = $qrcodeService->qrcode($data['qr_code']);
+            // dd($request);
+            $type = $request->get('gr_stand')['Type'];
+            $uuid = $request->get('gr_stand')['uuid'];
+            $type = $GRType->find($type);
+            $stand->setType($type)
+                ->setQrCode($uuid);
+            $qrCode = $qrcodeService->qrcode($uuid);
+            // dd($stand);
+
+            $em->persist($stand);
+            $em->flush();
         }
 
         return $this->render('admin/create.html.twig', [

@@ -2,30 +2,30 @@
 
 namespace App\Form;
 
-use App\Entity\GRQuizz;
 use App\Entity\GRStand;
 use App\Entity\GRTypeStand;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class GRStandType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('uuid')
+            ->add('uuid', HiddenType::class)
             ->add('NomStand')
             ->add('PositionX')
             ->add('PositionY')
-            ->add('qr_code')
+            // ->add('qr_code')
             ->add(
                 'Type',
                 EntityType::class,
                 [
                     'class' => GRTypeStand::class,
-                    'label' => false,
+                    // 'label' => false,
                     // 'expanded' => true,
                     'required' => true,
                     'multiple' => false,
