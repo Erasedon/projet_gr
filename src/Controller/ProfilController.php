@@ -19,8 +19,7 @@ class ProfilController extends AbstractController
             'controller_name' => 'ProfilController',
         ]);
     }
-
-    
+  
     #[Route('/profil/mail_confirmationb', name: 'app_profil_mail_confirmation')]
     public function mail_confirmation(UserService $userService, EmailVerifier $emailVerifier, Request $request): Response
     {
