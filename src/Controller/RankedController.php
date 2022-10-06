@@ -8,11 +8,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class RankedController extends AbstractController
 {
-    #[Route('/ranked', name: 'app_ranked')]
-    public function index(): Response
+    #[Route('/classement', name: 'ranked_home')]
+    public function ranked(): Response
     {
-        return $this->render('ranked/index.html.twig', [
-            'controller_name' => 'RankedController',
+        return $this->render('home/ranked.html.twig', [
+            'controller_name' => 'HomeController',
         ]);
     }
 }

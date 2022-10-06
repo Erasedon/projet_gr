@@ -3,7 +3,9 @@
 {% block title %}Hello HomeController!
 {% endblock %}
 
+
 {% block body %}
+
 <div class="container">
 <div class="quiz-container" id="quiz">
     <div class="quiz-header">
@@ -27,8 +29,15 @@
         </li>
       </ul>
     </div>
-    <button id="submit">Valider</button>
+    <button id="submitquizz">Valider</button>
   </div>
 </div>
+{% block javascript %}
+            {{ encore_entry_script_tags('quizz') }}
+    {% endblock %}
 
 {% endblock %}
+
+
+
+ 
