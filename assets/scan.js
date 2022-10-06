@@ -83,7 +83,7 @@ window.addEventListener('load', function () {
         if (decodingStyle == "once") {
           decodeOnce(codeReader, selectedDeviceId);
           document.getElementById('display').style.display="block";
-          document.getElementById('buttonscan').style.display="none";
+          document.getElementById('startButton').style.display="none";
         } else {
           decodeContinuously(codeReader, selectedDeviceId);
         }
@@ -93,7 +93,7 @@ window.addEventListener('load', function () {
 
       document.getElementById('resetButton').addEventListener('click', () => {
        document.getElementById('display').style.display="none";
-        document.getElementById('buttonscan').style.display="none";
+        document.getElementById('startButton').style.display="none";
         codeReader.reset()
         
         // document.getElementById('result').textContent = '';
