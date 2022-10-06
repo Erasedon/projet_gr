@@ -1,13 +1,12 @@
-
   
 function decodeOnce(codeReader, selectedDeviceId) {
   codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
     console.log(result)
-    document.getElementById('result').textContent = result.text
+    // document.getElementById('result').textContent = result.text
     setTimeout(document.location.href=result.text, 2000);
   }).catch((err) => {
     console.error(err)
-    document.getElementById('result').textContent = err
+    // document.getElementById('result').textContent = err
   })
 }
 
@@ -16,7 +15,8 @@ function decodeContinuously(codeReader, selectedDeviceId) {
     if (result) {
       // properly decoded qr code
       console.log('QR code trouvé!', result)
-      document.getElementById('result').textContent = result.text
+      // document.getElementById('result').textContent = result.text
+      console.log( result.text);
     }
 
     if (err) {
@@ -64,6 +64,13 @@ window.addEventListener('load', function () {
 
         sourceSelect.onchange = () => {
           selectedDeviceId = sourceSelect.value;
+          const decodingStyle = document.getElementById('decoding-style').value;
+          if (decodingStyle == "once") {
+            decodeOnce(codeReader, selectedDeviceId);
+            document.getElementById('display').style.display="block";
+          } else {
+            decodeContinuously(codeReader, selectedDeviceId);
+          }
         };
 
         const sourceSelectPanel = document.getElementById('sourceSelectPanel')
@@ -73,9 +80,10 @@ window.addEventListener('load', function () {
       document.getElementById('startButton').addEventListener('click', () => {
 
         const decodingStyle = document.getElementById('decoding-style').value;
-
         if (decodingStyle == "once") {
           decodeOnce(codeReader, selectedDeviceId);
+          document.getElementById('display').style.display="block";
+          document.getElementById('buttonscan').style.display="none";
         } else {
           decodeContinuously(codeReader, selectedDeviceId);
         }
@@ -84,9 +92,13 @@ window.addEventListener('load', function () {
       })
 
       document.getElementById('resetButton').addEventListener('click', () => {
+       document.getElementById('display').style.display="none";
+        document.getElementById('buttonscan').style.display="none";
         codeReader.reset()
-        document.getElementById('result').textContent = '';
+        
+        // document.getElementById('result').textContent = '';
         console.log('Reset de l\'appli')
+
       })
 
     })
