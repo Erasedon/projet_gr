@@ -4,6 +4,7 @@
 {% endblock %}
 
 {% block body %}
+
 	<div class="card mx-5">
 		<div class="text-center">
 			<h1>Liste des Stands</h1>
@@ -31,4 +32,26 @@
 			</div>
 		</nav>
 	</div>
+  
+// partie quentin qr code stand
+<div class="example-wrapper">
+    <h1>Symfony QR-Code ✅</h1> <hr>
+
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_start(form) }}
+                {{ form_row(form.nomstand, {'attr': {'class': 'form-control', 'placeholder': 'Recherche'}}) }}
+                <hr>
+                <button type="submit" class="btn btn-success btn-block">Recherche</button>
+            {{ form_end(form) }}
+        </div>
+        <div class="col-md-6">
+            {% if qrCode %}
+                <img src="{{ qrCode }}" alt="qr-code">
+            {% endif %}
+        </div>
+    </div>
+</div>
+
 {% endblock %}
+

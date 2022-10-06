@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Services\QrcodeService;
+use App\Form\QrcodestandFormType;
 use App\Repository\GRUserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -28,11 +30,23 @@ class AdminController extends AbstractController
         ]);
     }
     #[Route('/admin/stand', name: 'app_stand')]
-    public function stand(): Response
+    public function stand(Request $request, QrcodeService $qrcodeService): Response
     {
+
+        $qrCode = null;
+        $form = $this->createForm(QrcodestandFormType::class, null);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $qrCode = $qrcodeService->qrcode($data['nomstand']);
+        }
+
         return $this->render('admin/stand.html.twig', [
-            'controller_name' => 'AdminController',
+            'form' => $form->createView(),
+            'qrCode' => $qrCode
         ]);
+       
     }
     #[Route('/admin/create', name: 'app_create')]
     public function create(): Response
@@ -41,6 +55,7 @@ class AdminController extends AbstractController
             'controller_name' => 'AdminController',
         ]);
     }
+    
     #[Route('/admin/block/{id}', name: 'app_block')]
     public function block($id, GRUserRepository $gRUserRepository, EntityManagerInterface $em)
     {
