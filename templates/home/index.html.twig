@@ -4,46 +4,46 @@
 
 {% block body %}
 
-  
 
-    <section class="container" id="demo-content">
-      <h1 class="title">Scan QR Code from Video Camera</h1>
+<div class="container my-3 d-flex justify-content-center form-auth">
+<div class="d-flex justify-content-center">
 
-      <div>
-        <a class="button" id="startButton">Start</a>
-        <a class="button" id="resetButton">Reset</a>
+        <button type="submit" class="btn btn-gr d-block mt-3" id="startButton">Scanner</button>
+      
+      </div>
+  <div id="display">
+    <div class="card px-5 py-3 bg-light radius">
+      <h1 class="display-5 mb-3">Scan QR Code from Video Camera</h1>
+
+      <div class="d-flex justify-content-center">
+     
+        <button type="submit" class="btn btn-gr d-block mt-3" id="resetButton">Redemarrer</button>
+
       </div>
 
-      <div>
-        <video id="video" width="300" height="200" style="border: 1px solid gray"></video>
+      <div class="mt-3 d-flex justify-content-center">
+        <video id="video" style="border: 1px solid gray"></video>
       </div>
 
       <div id="sourceSelectPanel" style="display:none">
-        <label for="sourceSelect">Change video source:</label>
+        <label for="sourceSelect">Changer de source video:</label>
         <select id="sourceSelect" style="max-width:400px">
         </select>
       </div>
 
-      <div style="display: table">
+      <div style="display: none">
         <label for="decoding-style"> Decoding Style:</label>
         <select id="decoding-style" size="1">
           <option value="once">Decode once</option>
           <option value="continuously">Decode continuously</option>
         </select>
       </div>
-
-      <label>Result:</label>
-      <pre><code id="result"></code></pre>
-
-      
-    </section>
-
-
-      <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>  
-  {% block javascript %}
-            {{ encore_entry_script_tags('scan') }}
-        {% endblock %}
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
+{% block javascript %}
+{{ encore_entry_script_tags('scan') }}
+{% endblock %}
 
 {% endblock %}
- 
-	
