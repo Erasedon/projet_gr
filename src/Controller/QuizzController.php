@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Entity\GRStand;
@@ -16,7 +17,7 @@ class QuizzController extends AbstractController
 
         $GRStand = $GRstandRepository->findOneByIdJoinedToQuizz($id);
 
-        $GRQuizz = $GRStand->getGRQuizz();
+        $GRQuizz = $GRStand->getGRQuizzs();
 
         dd($GRQuizz);
 
@@ -24,5 +25,4 @@ class QuizzController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
-
 }
