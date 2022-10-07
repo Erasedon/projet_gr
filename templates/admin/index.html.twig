@@ -59,16 +59,29 @@
 	<div class="d-flex justify-content-center pagination">{{ knp_pagination_render(users)}}</div>
 {% endblock %}
 {% block navbar %}
-	<div class="menu-nav" id="nav">
-		<nav class="navbar">
-			<div class="navcont container-fluid d-flex justify-content-around">
-				<a class="nav-link" href="{{path('app_home')}}">
-					<i class="fa-solid fa-house"></i>
-				</a>
-				<a class="nav-link" href="{{path('app_stand')}}">
-					<i class="fa-solid fa-store"></i>
-				</a>
-			</div>
-		</nav>
-	</div>
+	<nav>
+				<div class="nav-box">
+					<ul class="nav-container">
+						{% if is_granted('ROLE_ADMIN') %}
+							<li class="nav__item">
+								<a href="{{path('app_home')}}" class="nav__item-link">
+									<div class="nav__item-icon">
+										<i class="fa-solid fa-house"></i>
+									</div>
+									<span class="nav__item-text">Accueil</span>
+								</a>
+							</li>
+							<li class="nav__item active">
+								<a href="{{path('app_stand')}}" class="nav__item-link">
+								
+									<button class="nav__item-icon" type="submit">
+										<i class="fa-solid fa-store"></i>
+									</button>
+									<span class="nav__item-text">Stand</span>
+								</a>
+							</li>
+							{% endif %}
+					</ul>
+				</div>
+			</nav>
 {% endblock %}

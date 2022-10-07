@@ -3,8 +3,9 @@
 namespace App\Controller;
 
 use App\Services\User;
-use App\Security\EmailVerifier;
 use App\Services\UserService;
+use App\Security\EmailVerifier;
+use App\Repository\GRUserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,10 +14,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ProfilController extends AbstractController
 {
     #[Route('/profil', name: 'app_profil')]
-    public function index(): Response
+    public function index(GRUserRepository $GRUserRepository): Response
     {
+        $GRUser = $GRUserRepository->findAll( array('classement' => 'ASC') );
+
+
         return $this->render('profil/index.html.twig', [
-            'controller_name' => 'ProfilController',
+            'userlists' => $GRUser,
         ]);
     }
   

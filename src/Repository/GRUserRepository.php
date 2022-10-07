@@ -67,6 +67,22 @@ class GRUserRepository extends ServiceEntityRepository implements PasswordUpgrad
             ->getQuery()
             ->getResult();
     }
+
+    public function findAllUserThanRank(int $classement): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT u.nom,u.
+            FROM App\Entity\GRUser u
+            WHERE u.classement > :classement
+            ORDER BY u.classement ASC'
+        )->setParameter('classement', $classement);
+
+        // returns an array of Product objects
+        return $query->getResult();
+    }
+
     //    /**
     //     * @return GRUser[] Returns an array of GRUser objects
     //     */
