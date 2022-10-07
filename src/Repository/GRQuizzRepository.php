@@ -40,6 +40,20 @@ class GRQuizzRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAllByIdJoinedToStand(string $standId): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT q, s
+            FROM App\Entity\GRQuizz q
+            INNER JOIN q.GRStand s
+            WHERE s.uuid = :id'
+        )->setParameter('id', $standId);
+
+        return $query->getArrayResult();
+    }
+
    
 
 //    /**

@@ -9,6 +9,8 @@
 <div class="container">
 <div class="quiz-container" id="quiz">
     <div class="quiz-header">
+     {% for quizz in quizzs %}
+
       <h2 id="question">Question en chargement...</h2>
       <ul>
         <li>
@@ -27,7 +29,10 @@
           <input type="radio" name="answer" id="d" class="answer" />
           <label for="d" id="d_text">Réponse...</label>
         </li>
+
       </ul>
+      {% endfor %}
+
     </div>
     <button id="submitquizz">Valider</button>
   </div>

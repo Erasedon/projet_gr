@@ -16,8 +16,9 @@
 		</title>
 
 		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-		{{ encore_entry_link_tags('style/app') }}
-		{% block stylesheets %}{% endblock %}
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('style/app') }}
+		{% endblock %}
 
 		{% block javascripts %}
 			{{ encore_entry_script_tags('app') }}

@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\GRStand;
-use App\Repository\GRStandRepository;
-use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\GRQuizzRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,17 +10,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class QuizzController extends AbstractController
 {
     #[Route('/quizz/{id}', name: 'quizz_home')]
-    public function show(GRStandRepository $GRstandRepository, string $id): Response
+    public function show(GRQuizzRepository $GRQuizzRepository, string $id): Response
     {
 
-        $GRStand = $GRstandRepository->findOneByIdJoinedToQuizz($id);
+        $GRQuizzs = $GRQuizzRepository->findAllByIdJoinedToStand($id);
 
-        $GRQuizz = $GRStand->getGRQuizzs();
-
+        
 /*         dd($GRQuizz);
  */
+
+
         return $this->render('home/quizz.html.twig', [
-            'quizz' => $GRQuizz
+            'quizzs' => $GRQuizzs
         ]);
     }
 }

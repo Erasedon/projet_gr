@@ -39,19 +39,7 @@ class GRStandRepository extends ServiceEntityRepository
         }
     }
 
-    public function findOneByIdJoinedToQuizz(string $standId): ?GRStand
-    {
-        $entityManager = $this->getEntityManager();
-
-        $query = $entityManager->createQuery(
-            'SELECT q, s
-            FROM App\Entity\GRStand s
-            INNER JOIN s.GRQuizz q
-            WHERE s.uuid = :id'
-        )->setParameter('id', $standId);
-
-        return $query->getOneOrNullResult();
-    }
+   
 
 //    /**
 //     * @return GRStand[] Returns an array of GRStand objects
