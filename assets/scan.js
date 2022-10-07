@@ -2,8 +2,21 @@
 function decodeOnce(codeReader, selectedDeviceId) {
   codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
     console.log(result)
-    // document.getElementById('result').textContent = result.text
-    setTimeout(document.location.href=result.text, 2000);
+  //   $.ajax({
+  //     url: "assets/includes/cards.php",
+  //     method: "POST",
+  //     data: result,
+  //     success: function(data) {
+  //         if(result.text === data){
+
+  //       // document.getElementById('result').textContent = result.text
+  //             setTimeout(document.location.href=result.text, 2000);
+  //         }else{
+  //           document.getElementById('error').textContent = "qrcode non correct"
+  //         }
+  //     }
+  // });
+  setTimeout(document.location.href=result.text, 2000);
   }).catch((err) => {
     console.error(err)
     // document.getElementById('result').textContent = err
@@ -92,9 +105,10 @@ window.addEventListener('load', function () {
       })
 
       document.getElementById('resetButton').addEventListener('click', () => {
-       document.getElementById('display').style.display="none";
-        document.getElementById('startButton').style.display="none";
         codeReader.reset()
+        document.getElementById('display').style.display="none";
+         document.getElementById('startButton').style.display="none";
+         document.getElementById('error').textContent = "";
         
         // document.getElementById('result').textContent = '';
         console.log('Reset de l\'appli')
