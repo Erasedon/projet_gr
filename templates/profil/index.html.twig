@@ -1,14 +1,153 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfilController!{% endblock %}
+{% block title %}Hello HomeController!
+{% endblock %}
 
 {% block body %}
 
 
-  <div class="col-sm-9 text-secondary">
+
+
+
+<div class="container">
+
+<h3>Mon classement</h3>
+{% if not app.user %}
+<div class="d-flex justify-content-center">
+ <p>Veuillez vous connecter !</p>
+<a class="" href="{{path('app_login')}}">Se connecter</a>
+</div>
+{% else %}
+	 <div class="col-sm-9 text-secondary">
                                 {{ app.user.Verified ? '✅' : '❌' }}
                                 {% if not app.user.Verified %}
                                 <a href="{{path('app_profil_mail_confirmation')}}" class="btn btn-secondary">Renvoyer le mail de confirmation</a>
                                  {% endif %}
                             </div>
+        
+{% endif %}
+
+
+
+<div class="comparison">
+  <table>
+    <thead>
+      <tr>
+	  	<th class="product">Nom</th>
+        <th class="product">Position</th>
+    	 <th class="product" style="background:#69C7F1; border-top-left-radius: 5px; border-left:0px;">Stand 1</th>
+        <th class="product" style="background:#69C7F1;">Stand 2</th>
+        <th class="product" style="border-top-right-radius: 5px; border-right:0px; background:#69C7F1;">Stand 3</th>
+		<th class="product" style="border-top-right-radius: 5px; border-right:0px; background:#69C7F1;">Stand 4</th>
+        <th class="product" style="border-top-right-radius: 5px; border-right:0px; background:#69C7F1;">Stand 5</th>
+		<th class="product" style="border-top-right-radius: 5px; border-right:0px; background:#69C7F1;">Total Points</th>
+
+      </tr>
+      
+    </thead>
+    <tbody>
+
+	{% if app.user %}
+      
+	  <tr>
+        <td></td>
+        <td colspan="3">User 1</td>
+      </tr>
+		<tr class="compare-row">
+			<td>{{app.user.prenom}} {{app.user.nom}}</td>
+			<td>-
+			</td>
+			<td>{{ app.user.stand1 ? '✅' : '❌' }}</td>
+			<td>{{ app.user.stand2 ? '✅' : '❌' }}
+			</td>
+			<td>{{ app.user.stand3 ? '✅' : '❌' }}
+			</td>
+			<td>{{ app.user.stand4 ? '✅' : '❌' }}
+			</td>
+			<td>{{ app.user.stand5 ? '✅' : '❌' }}
+			</td>
+			<td>{{app.user.classement}} Points
+			</td>
+		</tr>
+		{% else %}
+		 <tr>
+        <td></td>
+        <td colspan="3">User 1</td>
+      </tr>
+		<tr class="compare-row">
+			<td>-</td>
+			<td>-
+			</td>
+			<td><span>–</span></td>
+			<td>-
+			</td>
+			<td>-
+			</td>
+			<td>-
+			</td>
+			<td>-
+			</td>
+			<td>-
+			</td>
+		</tr>
+			
+		{% endif %}
+     
+    </tbody>
+  </table>
+
+</div>
+
+<h3>Classements des Joueurs</h3>
+<div class="comparison">
+  <table>
+    <thead>
+      <tr>
+	  	<th class="product">Nom</th>
+        <th class="product">Position</th>
+    	 <th class="product" style="background:#69C7F1; border-top-left-radius: 5px; border-left:0px;">Stand 1</th>
+        <th class="product" style="background:#69C7F1;">Stand 2</th>
+        <th class="product" style="border-top-right-radius: 5px; border-right:0px; background:#69C7F1;">Stand 3</th>
+		<th class="product" style="border-top-right-radius: 5px; border-right:0px; background:#69C7F1;">Stand 4</th>
+        <th class="product" style="border-top-right-radius: 5px; border-right:0px; background:#69C7F1;">Stand 5</th>
+		<th class="product" style="border-top-right-radius: 5px; border-right:0px; background:#69C7F1;">Total Points</th>
+
+      </tr>
+      
+    </thead>
+    <tbody>
+      {% for userlist in userlists %}
+	    <tr>
+        <td></td>
+        <td colspan="3">{{userlist.nom}}</td>
+      </tr>
+		<tr class="compare-row">
+			<td>{{userlist.prenom}} {{userlist.nom}}</td>
+			<td>-
+			</td>
+			<td>{{ userlist.stand1 ? '✅' : '❌' }}</td>
+			<td>{{ userlist.stand2 ? '✅' : '❌' }}
+			</td>
+			<td>{{ userlist.stand3 ? '✅' : '❌' }}
+			</td>
+			<td>{{ userlist.stand4 ? '✅' : '❌' }}
+			</td>
+			<td>{{ userlist.stand5 ? '✅' : '❌' }}
+			</td>
+			<td>{{ userlist.classement}} Points
+			</td>
+		</tr>
+		
+	  {% endfor %}
+	
+
+   
+
+     
+     
+    </tbody>
+  </table>
+
+</div>
+</div>
 {% endblock %}

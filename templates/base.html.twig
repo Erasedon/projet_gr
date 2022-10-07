@@ -54,14 +54,7 @@
 				<div class="nav-box">
 					<ul class="nav-container">
 						{% if is_granted('ROLE_ADMIN') %}
-							<li class="nav__item">
-								<a href="{{path('app_home')}}" class="nav__item-link">
-									<div class="nav__item-icon">
-										<i class="fa-solid fa-house"></i>
-									</div>
-									<span class="nav__item-text">Accueil</span>
-								</a>
-							</li>
+							
 							<li class="nav__item active">
 								<a href="{{path('app_admin')}}" class="nav__item-link">
 									<div class="nav__item-icon">
@@ -70,15 +63,24 @@
 									<span class="nav__item-text">Administration</span>
 								</a>
 							</li>
-						{% else %}
 							<li class="nav__item">
-								<a href="{# {{path('quizz_home')}} #}" class="nav__item-link">
+								<a href="{{path('app_home')}}" class="nav__item-link">
 									<div class="nav__item-icon">
-										<i class="fa-regular fa-rectangle-list"></i>
+										<i class="fa-solid fa-house"></i>
 									</div>
-									<span class="nav__item-text">Questions</span>
+									<span class="nav__item-text">Accueil</span>
 								</a>
 							</li>
+							<li class="nav__item active">
+								<a href="{{path('app_profil')}}" class="nav__item-link">
+									<div class="nav__item-icon">
+										<i class="fa-solid fa-user"></i>
+									</div>
+									<span class="nav__item-text">Profil</span>
+								</a>
+							</li>
+						{% else %}
+							
 							<li class="nav__item active">
 								<a href="{{path('app_home')}}" class="nav__item-link">
 									<div class="nav__item-icon">
@@ -88,11 +90,11 @@
 								</a>
 							</li>
 							<li class="nav__item">
-								<a href="{{path('ranked_home')}}" class="nav__item-link">
+								<a href="{{path('app_profil')}}" class="nav__item-link">
 									<div class="nav__item-icon">
-										<i class="fa-solid fa-ranking-star"></i>
+										<i class="fa-solid fa-user"></i>
 									</div>
-									<span class="nav__item-text">Classements</span>
+									<span class="nav__item-text">Profil</span>
 								</a>
 							</li>
 						{% endif %}
