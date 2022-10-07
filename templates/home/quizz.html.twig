@@ -5,44 +5,42 @@
 
 
 {% block body %}
-
-<div class="container">
-<div class="quiz-container" id="quiz">
-    <div class="quiz-header">
-     {% for quizz in quizzs %}
-  
-      <h2 id="question">{{ quizz.Question }}</h2>
-      <ul>
-        <li>
-          <input type="radio" name="answer" id="a" class="answer" />
-          <label for="a" id="a_text">{{ quizz.Reponse1}}</label>
-        </li>
-        <li>
-          <input type="radio" name="answer" id="b" class="answer" />
-          <label for="b" id="b_text">{{ quizz.Reponse2}}</label>
-        </li>
-        <li>
-          <input type="radio" name="answer" id="c" class="answer" />
-          <label for="c" id="c_text">{{ quizz.Reponse3}}</label>
-        </li>
-        <li>
-          <input type="radio" name="answer" id="d" class="answer" />
-          <label for="d" id="d_text">{{ quizz.Reponse4}}</label>
-        </li>
-
-      </ul>
-      {% endfor %}
-
-    </div>
-    <button id="submitquizz">Valider</button>
-  </div>
-</div>
-{% block javascript %}
-            {{ encore_entry_script_tags('quizz') }}
-    {% endblock %}
-
+	<div class="container">
+		<div class="titre">
+			<h2>Quizz</h2>
+		</div>
+		<form action="{{path('quizz_result', {id:id})}}" name="test">
+			{% for quizz in quizzs %}
+				<div class="mx-3 text-center">
+					<h3>{{quizz.Question}}</h3>
+				</div>
+				<div class="card">
+					<div class="btn-group btn-group-toggle d-flex flex-column m-5" data-toggle="buttons">
+						<label class="btn btn-secondary">
+							<input type="radio" name={{quizz.Question}} id="option1" autocomplete="off" value={{quizz.Reponse1}}>
+							{{quizz.Reponse1}}
+						</label>
+						<label class="btn btn-secondary">
+							<input type="radio" name={{quizz.Question}} id="option2" autocomplete="off" value={{quizz.Reponse2}}>
+							{{quizz.Reponse2}}
+						</label>
+						<label class="btn btn-secondary">
+							<input type="radio" name={{quizz.Question}} id="option3" autocomplete="off" value={{quizz.Reponse3}}>
+							{{quizz.Reponse3}}
+						</label>
+						<label class="btn btn-secondary">
+							<input type="radio" name={{quizz.Question}} id="option4" autocomplete="off" value={{quizz.Reponse4}}>
+							{{quizz.Reponse4}}
+						</label>
+					</div>
+				{% endfor %}
+			</div>
+			<input type="submit" value="validez" class="mx-5">
+		</div>
+	</form>
+	<div class="my-5"></div>
+	<div class="my-5"></div>
+	{% block javascript %}
+		{{ encore_entry_script_tags('quizz') }}
+	{% endblock %}
 {% endblock %}
-
-
-
- 

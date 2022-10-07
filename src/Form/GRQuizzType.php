@@ -21,6 +21,7 @@ class GRQuizzType extends AbstractType
             ->add('Reponse3')
             ->add('Reponse4')
             ->add('BonneReponse')
+            ->add('points')
             ->add('GRImage', FileType::class, [
                 'label' => 'image',
                 'multiple' => false,
