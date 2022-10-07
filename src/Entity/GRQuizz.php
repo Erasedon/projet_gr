@@ -39,6 +39,9 @@ class GRQuizz
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
+    #[ORM\Column]
+    private ?int $points = null;
+
     public function __construct()
     {
         $this->GRStands = new ArrayCollection();
@@ -141,6 +144,18 @@ class GRQuizz
     public function setImage(?string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getPoints(): ?int
+    {
+        return $this->points;
+    }
+
+    public function setPoints(int $points): self
+    {
+        $this->points = $points;
 
         return $this;
     }
