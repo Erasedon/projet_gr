@@ -1,0 +1,40 @@
+:root {
+
+    --border-radius-global: 1rem;
+    --border-radius-max: 12em;
+
+    --GR-theme: #DE6181;
+    --GR-light: #f4fefe;
+    --GR-black: #0E1D26;
+    --GR-first: #1c307e;
+    --GR-second: #D9E547;
+    
+  
+}
+
+
+
+// Variables Responsive 
+$laptop: 'only screen and (min-width: 1200px) and (max-width: 1600px)';
+$lg : 'only screen and (min-width: 992px) and (max-width: 1200px)';
+$md:'only screen and (min-width: 768px) and (max-width: 991px)';
+$xs:'(max-width: 767px)';
+$sm: 'only screen and (min-width: 466px) and (max-width: 767px)';
+
+// Font Family
+$poppins: 'Poppins', sans-serif;
+
+// Color variables
+$GRtext: #f1f7f7;
+$GRborder: #1c307e;
+$GRtheme: var(--GR-theme);
+$GRlight : var(--GR-light);
+$GRnoir : var(--GR-black);
+$GRfirst : var(--GR-first);
+$GRsecond : var(--GR-second);
+$GRwhite : #fff;
+
+$radius : var(--border-radius-global);
+$radiusmax : var(--border-radius-max);
+
+

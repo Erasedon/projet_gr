@@ -1,0 +1,21 @@
+@import "~bootstrap/scss/bootstrap";
+
+/* import font awesome */
+
+@import url(https://fonts.googleapis.com/css2?family=Poppins&display=swa); 
+
+/* import base */
+@import "base/variables";
+@import "base/utilities";
+@import "base/base";
+
+// Components
+
+@import 'components/all';
+
+// Page 
+
+@import 'page/all';
+
+
+

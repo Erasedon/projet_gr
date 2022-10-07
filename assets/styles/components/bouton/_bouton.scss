@@ -1,0 +1,36 @@
+.btn-gr::before {
+    content: "";
+    background-color: $GRtheme !important;
+    width: 0%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    transition: 0.7s;
+  }
+
+.btn-gr {
+  background-color: $GRsecond;
+  color: $GRwhite $GRnoir;
+  border: 2px solid black;
+  
+}
+
+.btn-gr:hover {
+    color: $GRwhite;
+    border: 2px solid black;
+
+  }
+  
+  .btn-gr::before {
+  width: 100%;
+  height: 0%;
+  }
+
+  .btn-gr:hover::before {
+  height: 100%;
+  border-radius: 5px;
+  }
+
+

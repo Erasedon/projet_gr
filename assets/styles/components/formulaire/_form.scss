@@ -1,0 +1,38 @@
+/* card formulaire login & inscription */
+
+
+
+.form-auth {
+    padding: 0px 5px;
+    font-size: 29px;
+    text-align: center;
+    color: $GRfirst;
+
+    .card {
+        background-color: rgba(255, 255, 255, 0.662) !important;
+        box-shadow: 12px 12px 2px 1px rgba(69, 5, 65, 0.2);
+    }
+    
+    input {
+        border-radius: $radiusmax;
+        font-size: 20px;
+    }
+    
+    input[type=checkbox] {
+        -border-radius: 4px;
+        height: 30px;
+        width: 30px;
+        margin: 0px 10px;
+        background: #fff;
+        border: 1px solid #ccc;
+    }
+
+    
+    .form-control {
+        text-align: center;
+        margin: 10px 0px;
+        font-size: 25px;
+
+        
+    }
+}
