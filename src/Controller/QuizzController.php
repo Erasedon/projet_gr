@@ -16,8 +16,8 @@ class QuizzController extends AbstractController
         $GRQuizzs = $GRQuizzRepository->findAllByIdJoinedToStand($id);
 
         
-/*         dd($GRQuizz);
- */
+    //   dd($GRQuizzs);
+
 
 
         return $this->render('home/quizz.html.twig', [

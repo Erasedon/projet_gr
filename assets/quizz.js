@@ -1,18 +1,18 @@
 const quizData = [
-    {
+    /* {
       question: "Which language runs in a web browser?",
-      a: "Java",
-      b: "C",
-      c: "Python",
-      d: "JavaScript",
+      a: "",
+      b: "",
+      c: "",
+      d: "",
       correct: "d"
     },
     {
       question: "What does CSS stand for?",
       a: "Central Style Sheets",
       b: "Cascading Style Sheets",
-      c: "Cascading Simple Sheets",
-      d: "Cars SUVs Sailboats",
+      c: "",
+      d: "",
       correct: "b"
     },
     {
@@ -38,7 +38,7 @@ const quizData = [
       c: "Not sure",
       d: "none of the above",
       correct: "a"
-    }
+    } */
    
   ];
   
