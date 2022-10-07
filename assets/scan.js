@@ -7,7 +7,7 @@ function decodeOnce(codeReader, selectedDeviceId) {
       infopos += position.coords.latitude +",";  
       infopos += position.coords.longitude;
       console.log(infopos);
-        if(infopos >= "49.739525, 4.722632" & infopos <= "49.740152, 4.721361" ){
+        if(infopos >= "45.739525, 3.722632" & infopos <= "50.740152, 5.721361" ){
         setTimeout(document.location.href=result.text, 2000);
         }else{
           console.log("error position");
