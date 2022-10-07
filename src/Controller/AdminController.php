@@ -17,6 +17,8 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminController extends AbstractController
@@ -188,5 +190,27 @@ class AdminController extends AbstractController
         $em->flush();
 
         return $this->redirectToRoute('app_admin');
+    }
+
+    /**
+     * @Route("/admin/invoice/{id}", name="app_invoice")
+     */
+    public function invoiceDownload(GRStandRepository $dr, $id): Response
+    {
+        $stand = $dr->find($id);
+        if ($stand !== null) {
+
+            $publicResourcesFolderPath = $this->getParameter('kernel.project_dir') . '/public/images/qrcode/';
+            $name = $stand->getQrCode();
+            $filename = $publicResourcesFolderPath . $name . '.png';
+            $response = new BinaryFileResponse($filename);
+            $response->headers->set('Content-Type', 'application/force-download');
+            $response->headers->set('Content-Disposition', "attachment; filename=$name.png");
+            $response->sendHeaders();
+            return $response;
+        } else {
+            $this->addFlash("danger", "cette image n'existe pas!");
+            return $this->redirectToRoute('app_admin');
+        }
     }
 }
