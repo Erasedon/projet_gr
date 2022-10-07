@@ -45,6 +45,7 @@ class GRStand
         $uuid = Uuid::v6();
         $this->setUuid($uuid);
         $this->GRQuizzs = new ArrayCollection();
+        $this->setNombreParticipant(0);
     }
     public function getId(): ?int
     {

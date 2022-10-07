@@ -5,20 +5,17 @@
 {% block body %}
 	<div class="card mx-5">
 		<div class="text-center">
-			<h1 class="mt-5">Liste des Stands</h1>
+			<h1 class="mt-5">Liste des questions</h1>
 		</div>
 		<div class="block_stand my-5">
 			<div class="table" id="tableli">
 				<ul>
-					{% for stand in stands %}
+					{% for quizz in quizzs %}
 						<li>
 							<div class="d-flex justify-content-between w-100 mx-5">
-								<div class="nom">{{stand.nomstand}}</div>
+								<div class="nom">{{quizz.GRStand.nomstand}}/{{quizz.bonneReponse}}</div>
 								<div class="score">
-									<a href="{{path('app_invoice', {id:stand.id})}}">
-										<i class="fa-solid fa-download"></i>
-									</a>
-									<a href="{{path('app_modif', {id:stand.id})}}">
+									<a href="{{path('app_quizz_modif', {id:quizz.id})}}">
 										<i class="fa-solid fa-eye"></i>
 									</a>
 								</div>
@@ -28,7 +25,7 @@
 				</ul>
 			</div>
 		</div>
-		<div class="d-flex justify-content-center pagination">{{ knp_pagination_render(stands)}}</div>
+		<div class="d-flex justify-content-center pagination">{{ knp_pagination_render(quizzs)}}</div>
 	</div>
 {% endblock %}
 {% block navbar %}
@@ -41,7 +38,7 @@
 				<a class="nav-link" href="{{path('app_home')}}">
 					<i class="fa-solid fa-house"></i>
 				</a>
-				<a class="nav-link" href="{{path('app_create')}}">
+				<a class="nav-link" href="{{path('app_create_quizz')}}">
 					<i class="fa-solid fa-pen-ruler"></i>
 				</a>
 			</div>

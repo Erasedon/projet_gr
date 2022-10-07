@@ -2,17 +2,23 @@
 
 namespace App\Controller;
 
+use App\Entity\GRQuizz;
 use App\Entity\GRStand;
+use App\Form\GRQuizzType;
 use App\Form\GRStandType;
 use App\Services\QrcodeService;
 use App\Form\QrcodestandFormType;
 use App\Repository\GRUserRepository;
+use App\Repository\GRQuizzRepository;
 use App\Repository\GRStandRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\GRTypeStandRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminController extends AbstractController
@@ -47,15 +53,19 @@ class AdminController extends AbstractController
         ]);
     }
     #[Route('/admin/modif/{id}', name: 'app_modif')]
-    public function modif(Request $request, GRStandRepository $GRStandRepository, GRStand $stand, QrcodeService $qrcodeService): Response
+    public function modif(Request $request, GRStandRepository $GRStandRepository, GRTypeStandRepository $GRType, GRStand $stand, QrcodeService $qrcodeService, EntityManagerInterface $em): Response
     {
         $qrCode = null;
         $form = $this->createForm(GRStandType::class, $stand);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $qrCode = $qrcodeService->qrcode($data['qr_code']);
+            $type = $request->get('gr_stand')['Type'];
+            $type = $GRType->find($type);
+            $stand->setType($type);
+
+            $em->persist($stand);
+            $em->flush();
         }
 
         return $this->render('admin/modif.html.twig', [
@@ -65,7 +75,7 @@ class AdminController extends AbstractController
         ]);
     }
     #[Route('/admin/create', name: 'app_create')]
-    public function create(Request $request, GRStandRepository $GRStandRepository, QrcodeService $qrcodeService): Response
+    public function create(Request $request, GRStandRepository $GRStandRepository, GRTypeStandRepository $GRType, QrcodeService $qrcodeService, EntityManagerInterface $em): Response
     {
         $qrCode = null;
         $stand = new GRStand();
@@ -73,12 +83,98 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $qrCode = $qrcodeService->qrcode($data['qr_code']);
+            $type = $request->get('gr_stand')['Type'];
+            $uuid = $request->get('gr_stand')['uuid'];
+            $type = $GRType->find($type);
+            $stand->setType($type)
+                ->setQrCode($uuid);
+            $qrCode = $qrcodeService->qrcode($uuid);
+
+            $em->persist($stand);
+            $em->flush();
         }
 
         return $this->render('admin/create.html.twig', [
             "qrCode" => $qrCode,
+            'form' => $form->createView(),
+            'controller_name' => 'AdminController',
+        ]);
+    }
+    #[Route('/admin/quizz', name: 'app_quizz')]
+    public function quizz(Request $request, GRQuizzRepository $GRQuizz, PaginatorInterface $paginator): Response
+    {
+        $quizzs = $GRQuizz->findALL();
+        $quizzs = $paginator->paginate(
+            $quizzs,
+            $request->query->getInt('page', 1),
+            10
+        );
+
+        return $this->render('admin/quizz.html.twig', [
+            'quizzs' => $quizzs
+        ]);
+    }
+    #[Route('/admin/quizz/create', name: 'app_create_quizz')]
+    public function create_quizz(Request $request, GRStandRepository $StandRepo, EntityManagerInterface $em): Response
+    {
+        $quizz = new GRQuizz();
+        $form = $this->createForm(GRQuizzType::class, $quizz);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $stand_id = $request->get('gr_quizz')['GRStand'];
+            $stand = $StandRepo->find($stand_id);
+            $image = $form->get('GRImage')->getData();
+            if ($image != null) {
+                // on genere un new nom de fichier
+                $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+                // on copie le fichier dans le dossier uploads
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+                // on stocke l'image dans la BDD (son nom)
+
+                $quizz->setImage($fichier);
+            }
+            $quizz->setGRStand($stand);
+            $em->persist($quizz);
+            $em->flush();
+        }
+
+        return $this->render('admin/createquizz.html.twig', [
+            'form' => $form->createView(),
+            'controller_name' => 'AdminController',
+        ]);
+    }
+    #[Route('/admin/quizz/modif/{id}', name: 'app_quizz_modif')]
+    public function quizz_modif(Request $request, $id, GRStandRepository $StandRepo, GRQuizz $quizz, GRQuizzRepository $QuizzRepo, EntityManagerInterface $em): Response
+    {
+        $form = $this->createForm(GRQuizzType::class, $quizz);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $stand_id = $request->get('gr_quizz')['GRStand'];
+            $stand = $StandRepo->find($stand_id);
+            $image = $form->get('GRImage')->getData();
+            if ($image != null) {
+                // on genere un new nom de fichier
+                $fichier = $QuizzRepo->find($id)->getImage();
+                // on copie le fichier dans le dossier uploads
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+                // on stocke l'image dans la BDD (son nom)
+
+                $quizz->setImage($fichier);
+            }
+            $quizz->setGRStand($stand);
+            $em->persist($quizz);
+            $em->flush();
+        }
+
+        return $this->render('admin/createquizz.html.twig', [
             'form' => $form->createView(),
             'controller_name' => 'AdminController',
         ]);
@@ -94,5 +190,27 @@ class AdminController extends AbstractController
         $em->flush();
 
         return $this->redirectToRoute('app_admin');
+    }
+
+    /**
+     * @Route("/admin/invoice/{id}", name="app_invoice")
+     */
+    public function invoiceDownload(GRStandRepository $dr, $id): Response
+    {
+        $stand = $dr->find($id);
+        if ($stand !== null) {
+
+            $publicResourcesFolderPath = $this->getParameter('kernel.project_dir') . '/public/images/qrcode/';
+            $name = $stand->getQrCode();
+            $filename = $publicResourcesFolderPath . $name . '.png';
+            $response = new BinaryFileResponse($filename);
+            $response->headers->set('Content-Type', 'application/force-download');
+            $response->headers->set('Content-Disposition', "attachment; filename=$name.png");
+            $response->sendHeaders();
+            return $response;
+        } else {
+            $this->addFlash("danger", "cette image n'existe pas!");
+            return $this->redirectToRoute('app_admin');
+        }
     }
 }

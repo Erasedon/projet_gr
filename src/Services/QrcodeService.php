@@ -28,11 +28,11 @@ class QrcodeService
         $objDateTime = new \DateTime('NOW');
         $dateString = $objDateTime->format('d-m-Y H:i:s');
 
-        $path = dirname(__DIR__, 2).'/public/';
+        $path = dirname(__DIR__, 2) . '/public/';
 
         // set qrcode
         $result = $this->builder
-            ->data($url.$query)
+            ->data($url . $query)
             ->encoding(new Encoding('UTF-8'))
             ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
             ->size(400)
@@ -40,18 +40,17 @@ class QrcodeService
             ->labelText($dateString)
             ->labelAlignment(new LabelAlignmentCenter())
             ->labelMargin(new Margin(15, 5, 5, 5))
-            ->logoPath($path.'images/gaminginreims-logo.png')
+            ->logoPath($path . 'images/gaminginreims-logo.png')
             ->logoResizeToWidth('100')
             ->logoResizeToHeight('100')
             ->backgroundColor(new Color(221, 158, 3))
-            ->build()
-        ;
+            ->build();
 
         //generate name
-        $namePng = uniqid('', '') . '.png';
+        $namePng = $query . '.png';
 
         //Save img png
-        $result->saveToFile($path.'images/qrcode/'.$namePng);
+        $result->saveToFile($path . 'images/qrcode/' . $namePng);
 
         return $result->getDataUri();
     }

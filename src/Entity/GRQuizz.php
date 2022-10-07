@@ -30,14 +30,14 @@ class GRQuizz
     #[ORM\Column(length: 100)]
     private ?string $Reponse4 = null;
 
-    #[ORM\ManyToOne(inversedBy: 'GRQuizzs')]
-    private ?GRImage $GRImage = null;
-
     #[ORM\Column(length: 100)]
     private ?string $BonneReponse = null;
 
     #[ORM\ManyToOne(inversedBy: 'GRQuizzs')]
     private ?GRStand $GRStand = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
 
     public function __construct()
     {
@@ -109,18 +109,6 @@ class GRQuizz
         return $this;
     }
 
-    public function getGRImage(): ?GRImage
-    {
-        return $this->GRImage;
-    }
-
-    public function setGRImage(?GRImage $GRImage): self
-    {
-        $this->GRImage = $GRImage;
-
-        return $this;
-    }
-
     public function getBonneReponse(): ?string
     {
         return $this->BonneReponse;
@@ -141,6 +129,18 @@ class GRQuizz
     public function setGRStand(?GRStand $GRStand): self
     {
         $this->GRStand = $GRStand;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }
