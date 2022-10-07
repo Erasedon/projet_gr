@@ -31,7 +31,7 @@ class QuizzController extends AbstractController
 
         $test = $request->query;
         $rep = $test->get('question2');
-        dd($request, $rep, $quizzs);
+        // dd($request, $rep, $quizzs);
         // dd($GRQuizzs);
 
 
