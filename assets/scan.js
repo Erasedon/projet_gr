@@ -2,6 +2,20 @@
 function decodeOnce(codeReader, selectedDeviceId) {
   codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
     console.log(result)
+    function maPosition(position) {
+      var infopos = "";
+      infopos += position.coords.latitude +",";  
+      infopos += position.coords.longitude;
+      console.log(infopos);
+        if(infopos >= "49.739525, 4.722632" & infopos <= "49.740152, 4.721361" ){
+        setTimeout(document.location.href=result.text, 2000);
+        }else{
+          console.log("error position");
+        }
+    }
+    
+    if(navigator.geolocation)
+      navigator.geolocation.getCurrentPosition(maPosition);
   //   $.ajax({
   //     url: "assets/includes/cards.php",
   //     method: "POST",
@@ -16,7 +30,7 @@ function decodeOnce(codeReader, selectedDeviceId) {
   //         }
   //     }
   // });
-  setTimeout(document.location.href=result.text, 2000);
+
   }).catch((err) => {
     console.error(err)
     // document.getElementById('result').textContent = err
