@@ -15,12 +15,13 @@ class QuizzController extends AbstractController
     #[Route('/quizz/{id}', name: 'quizz_home')]
     public function show(GRQuizzRepository $GRQuizzRepository, string $id): Response
     {
-       
+
         $GRQuizzs = $GRQuizzRepository->findAllByIdJoinedToStand($id);
-        
+        shuffle($GRQuizzs);
+
         if (!$GRQuizzs) {
             throw $this->createNotFoundException(
-                'pas de question pour cette '.$id
+                'pas de question pour cette ' . $id
             );
         }
 
@@ -35,8 +36,8 @@ class QuizzController extends AbstractController
 
         $quizzs = $GRQuizzRepository->findAllByIdJoinedToStand($id);
 
-        $test = $request->query;
-        $rep = $test->get('question2');
+        // $test = $request->query;
+        // $rep = $test->get('question2');
         // dd($request, $rep, $quizzs);
         // dd($GRQuizzs);
 

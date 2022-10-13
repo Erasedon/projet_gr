@@ -39,45 +39,42 @@ class GRQuizzRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
-    public function findAllByIdJoinedToStand(string $standId): array
+    /**
+     * @return GRQuizz[] Returns an array of GRQuizz objects
+     */
+    public function findAllByIdJoinedToStand($standId): array
     {
-        $entityManager = $this->getEntityManager();
-
-        $query = $entityManager->createQuery(
-            'SELECT q, s
-            FROM App\Entity\GRQuizz q
-            INNER JOIN q.GRStand s
-            WHERE s.uuid = :id'
-        )->setParameter('id', $standId);
-
-        return $query->getArrayResult();
+        return $this->createQueryBuilder('q')
+            ->join('q.GRStand', 'gr')
+            ->andWhere('gr.qr_code = :val')
+            ->setParameter('val', $standId)
+            ->orderBy('q.id', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 
-   
+    //    /**
+    //     * @return GRQuizz[] Returns an array of GRQuizz objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('g')
+    //            ->andWhere('g.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('g.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
 
-//    /**
-//     * @return GRQuizz[] Returns an array of GRQuizz objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('g')
-//            ->andWhere('g.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('g.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?GRQuizz
-//    {
-//        return $this->createQueryBuilder('g')
-//            ->andWhere('g.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    public function findOneBySomeField($value): ?GRQuizz
+    //    {
+    //        return $this->createQueryBuilder('g')
+    //            ->andWhere('g.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
 }
