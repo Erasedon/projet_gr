@@ -9,7 +9,7 @@
 		<div class="titre">
 			<h2>Quizz</h2>
 		</div>
-		<form action="{{path('quizz_result', {id:id})}}" name="test">
+		<form action="{{path('quizz_result', {id:id})}}" name="test" method="POST">
 			{% for quizz in quizzs %}
 				<div class="mx-3 text-center">
 					<h3>{{quizz.Question}}</h3>

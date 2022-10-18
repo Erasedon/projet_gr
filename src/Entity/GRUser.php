@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\GRUserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -41,26 +43,19 @@ class GRUser implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: true)]
     private ?int $classement = null;
 
-    #[ORM\Column]
-    private ?bool $stand1 = null;
-
-    #[ORM\Column]
-    private ?bool $stand2 = null;
-
-    #[ORM\Column]
-    private ?bool $stand3 = null;
-
-    #[ORM\Column]
-    private ?bool $stand4 = null;
-
-    #[ORM\Column]
-    private ?bool $stand5 = null;
-
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
     #[ORM\Column]
     private ?bool $Banned = null;
+
+    #[ORM\ManyToMany(targetEntity: GRCheckpoint::class, mappedBy: 'GRUser')]
+    private Collection $GRCheckPoints;
+
+    public function __construct()
+    {
+        $this->GRCheckPoints = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -180,66 +175,6 @@ class GRUser implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function isStand1(): ?bool
-    {
-        return $this->stand1;
-    }
-
-    public function setStand1(bool $stand1): self
-    {
-        $this->stand1 = $stand1;
-
-        return $this;
-    }
-
-    public function isStand2(): ?bool
-    {
-        return $this->stand2;
-    }
-
-    public function setStand2(bool $stand2): self
-    {
-        $this->stand2 = $stand2;
-
-        return $this;
-    }
-
-    public function isStand3(): ?bool
-    {
-        return $this->stand3;
-    }
-
-    public function setStand3(bool $stand3): self
-    {
-        $this->stand3 = $stand3;
-
-        return $this;
-    }
-
-    public function isStand4(): ?bool
-    {
-        return $this->stand4;
-    }
-
-    public function setStand4(bool $stand4): self
-    {
-        $this->stand4 = $stand4;
-
-        return $this;
-    }
-
-    public function isStand5(): ?bool
-    {
-        return $this->stand5;
-    }
-
-    public function setStand5(bool $stand5): self
-    {
-        $this->stand5 = $stand5;
-
-        return $this;
-    }
-
     public function isVerified(): bool
     {
         return $this->isVerified;
@@ -260,6 +195,33 @@ class GRUser implements UserInterface, PasswordAuthenticatedUserInterface
     public function setBanned(bool $Banned): self
     {
         $this->Banned = $Banned;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, GRCheckpoint>
+     */
+    public function getGRCheckPoints(): Collection
+    {
+        return $this->GRCheckPoints;
+    }
+
+    public function addGRCheckPoint(GRCheckpoint $gRCheckPoint): self
+    {
+        if (!$this->GRCheckPoints->contains($gRCheckPoint)) {
+            $this->GRCheckPoints->add($gRCheckPoint);
+            $gRCheckPoint->addGRUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGRCheckPoint(GRCheckpoint $gRCheckPoint): self
+    {
+        if ($this->GRCheckPoints->removeElement($gRCheckPoint)) {
+            $gRCheckPoint->removeGRUser($this);
+        }
 
         return $this;
     }

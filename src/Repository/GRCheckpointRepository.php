@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\GRStand;
+use App\Entity\GRCheckpoint;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<GRStand>
+ * @extends ServiceEntityRepository<GRCheckpoint>
  *
- * @method GRStand|null find($id, $lockMode = null, $lockVersion = null)
- * @method GRStand|null findOneBy(array $criteria, array $orderBy = null)
- * @method GRStand[]    findAll()
- * @method GRStand[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method GRCheckpoint|null find($id, $lockMode = null, $lockVersion = null)
+ * @method GRCheckpoint|null findOneBy(array $criteria, array $orderBy = null)
+ * @method GRCheckpoint[]    findAll()
+ * @method GRCheckpoint[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class GRStandRepository extends ServiceEntityRepository
+class GRCheckpointRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, GRStand::class);
+        parent::__construct($registry, GRCheckpoint::class);
     }
 
-    public function save(GRStand $entity, bool $flush = false): void
+    public function save(GRCheckpoint $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class GRStandRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(GRStand $entity, bool $flush = false): void
+    public function remove(GRCheckpoint $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,20 +40,20 @@ class GRStandRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return GRStand[] Returns an array of GRStand objects
+     * @return GRCheckpoint[] Returns an array of GRCheckpoint objects
      */
-    public function findByUUID($uuid): array
+    public function findByNomStand($name): array
     {
         return $this->createQueryBuilder('q')
-            ->andWhere('q.qr_code = :val')
-            ->setParameter('val', $uuid)
+            ->andWhere('q.nom_stands = :val')
+            ->setParameter('val', $name)
             ->orderBy('q.id', 'ASC')
             ->getQuery()
             ->getResult();
     }
 
     //    /**
-    //     * @return GRStand[] Returns an array of GRStand objects
+    //     * @return GRCheckpoint[] Returns an array of GRCheckpoint objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -67,7 +67,7 @@ class GRStandRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?GRStand
+    //    public function findOneBySomeField($value): ?GRCheckpoint
     //    {
     //        return $this->createQueryBuilder('g')
     //            ->andWhere('g.exampleField = :val')

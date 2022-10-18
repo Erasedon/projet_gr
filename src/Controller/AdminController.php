@@ -6,6 +6,7 @@ use App\Entity\GRQuizz;
 use App\Entity\GRStand;
 use App\Form\GRQuizzType;
 use App\Form\GRStandType;
+use App\Entity\GRCheckpoint;
 use App\Services\QrcodeService;
 use App\Form\QrcodestandFormType;
 use App\Repository\GRUserRepository;
@@ -84,13 +85,16 @@ class AdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $type = $request->get('gr_stand')['Type'];
+            $NomStand = $request->get('gr_stand')['NomStand'];
             $uuid = $request->get('gr_stand')['uuid'];
             $type = $GRType->find($type);
             $stand->setType($type)
                 ->setQrCode($uuid);
             $qrCode = $qrcodeService->qrcode($uuid);
-
+            $checkpoint = new GRCheckpoint();
+            $checkpoint->setNomStands($NomStand);
             $em->persist($stand);
+            $em->persist($checkpoint);
             $em->flush();
         }
 
