@@ -83,6 +83,20 @@ class GRUserRepository extends ServiceEntityRepository implements PasswordUpgrad
         return $query->getResult();
     }
 
+    /**
+     * @return GRUser[] Returns an array of GRUser objects
+     */
+    public function findAllCheckByUser($check): array
+    {
+        return $this->createQueryBuilder('q')
+            ->join('q.GRCheckpoint', 'gr')
+            ->andWhere('gr.nom_stands = :val')
+            ->setParameter('val', $check)
+            ->orderBy('q.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return GRUser[] Returns an array of GRUser objects
     //     */

@@ -16,10 +16,30 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class QuizzController extends AbstractController
 {
     #[Route('/quizz/{id}', name: 'quizz_home')]
-    public function show(GRQuizzRepository $GRQuizzRepository, string $id): Response
+    public function show(GRQuizzRepository $GRQuizzRepository, GRCheckpointRepository $GRCheckpointRepository, GRUserRepository $GRUser, GRStandRepository $gRStandRepository, string $id): Response
     {
-
+        $user = $this->getUser();
         $GRQuizzs = $GRQuizzRepository->findAllByIdJoinedToStand($id);
+        $standids = $gRStandRepository->findByUUID($id);
+        foreach ($standids as $standid) {
+            $nom_du_stand = $standid->getNomStand();
+        }
+        $checkpoints = $GRCheckpointRepository->findByNomStand($nom_du_stand);
+        foreach ($checkpoints as $checkpoint) {
+            $id_checkpoints = $checkpoint->getId();
+        }
+        $checkpoints = $GRCheckpointRepository->find($id_checkpoints);
+        $users = $checkpoints->getGRUser();
+        $user_a_check = $GRUser->find($user);
+        $user_a_check = $user_a_check->getNom();
+        foreach ($users as $user) {
+            $nomuser = $user->getNom();
+        }
+        if ($nomuser === $user_a_check) {
+            return $this->redirectToRoute('app_home');
+        } else {
+            $memo = 'mettre la geoloc dans ce else';
+        }
         shuffle($GRQuizzs);
 
         if (!$GRQuizzs) {
